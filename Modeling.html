@@ -326,44 +326,51 @@
     </dialog>
 
     <script>
-        // 1. CONFIGURATION
         const username = "simplynaranja";
         const repo = "Model";
         const folder = "Modeling";
         const totalImages = 71;
 
-        const grid = document.getElementById('image-grid');
         const modal = document.getElementById('gal_modal');
         const modalImg = document.getElementById('gal_img');
         let activeImageIndex = 1;
-        const validImages = []; // Track which images loaded successfully
+        const validImages = [];
 
-        // 2. GALLERY GENERATION
-        const fragment = document.createDocumentFragment();
-        for (let i = 1; i <= totalImages; i++) {
-            const img = document.createElement('img');
-            // Added a small timestamp to the URL to prevent GitHub caching issues
-            img.src = `https://raw.githubusercontent.com/${username}/${repo}/main/${folder}/${i}.jpg`;
-            img.className = "aspect-[3/4] object-cover gallery-img hidden opacity-0 transition-all duration-500";
-            img.loading = "lazy";
+        //GALLERY
+        function loadGallery() {
+            const grid = document.getElementById('image-grid');
+            if (!grid || grid.children.length > 0) return;
 
-            img.onload = function () {
-                validImages.push(i); // Add to valid images when loaded
-                this.classList.remove('hidden');
-                setTimeout(() => this.classList.add('opacity-100'), 50);
-            };
+            const fragment = document.createDocumentFragment();
 
-            img.onerror = function () {
-                console.warn(`Image ${i} failed to load at ${this.src}`);
-                this.remove();
-            };
+            for (let i = 1; i <= totalImages; i++) {
+                const wrapper = document.createElement('div');
+                wrapper.className = "aspect-[3/4] bg-black/5 rounded-sm overflow-hidden animate-pulse relative";
 
-            img.onclick = function () { openModal(i); };
-            fragment.appendChild(img);
+                const img = document.createElement('img');
+                img.src = `https://raw.githubusercontent.com/${username}/${repo}/main/${folder}/${i}.jpg`;
+                img.className = "w-full h-full object-cover opacity-0 transition-opacity duration-700 cursor-pointer hover:scale-105 transition-transform duration-500";
+                img.loading = "lazy";
+
+                img.onload = function () {
+                    validImages.push(i);
+                    validImages.sort((a, b) => a - b);
+                    wrapper.classList.remove('animate-pulse', 'bg-black/5');
+                    this.classList.add('opacity-100');
+                };
+                img.onerror = function () {
+                    wrapper.remove();
+                };
+
+                img.onclick = () => openModal(i);
+
+                wrapper.appendChild(img);
+                fragment.appendChild(wrapper);
+            }
+            grid.appendChild(fragment);
         }
-        grid.appendChild(fragment);
 
-        // 3. MODAL NAVIGATION
+        // GALLERY FLIP MODAL
         function openModal(index) {
             activeImageIndex = index;
             updateModalImage();
@@ -372,38 +379,45 @@
         }
 
         function updateModalImage() {
+            modalImg.style.opacity = '0';
             modalImg.src = `https://raw.githubusercontent.com/${username}/${repo}/main/${folder}/${activeImageIndex}.jpg`;
+
+            modalImg.onload = () => {
+                modalImg.style.opacity = '1';
+                modalImg.style.transition = 'opacity 0.3s ease';
+            };
+            updateButtonVisibility();
         }
 
         function changeImage(step) {
-            let nextIndex = activeImageIndex + step;
+            const currentIndex = validImages.indexOf(activeImageIndex);
+            let nextIndex = currentIndex + step;
 
-            // Keep moving in the given direction until we find a valid image
-            while (!validImages.includes(nextIndex)) {
-                nextIndex += step;
-                // Wrap around
-                if (nextIndex > totalImages) nextIndex = 1;
-                if (nextIndex < 1) nextIndex = totalImages;
-                // Safety check to prevent infinite loop
-                if (nextIndex === activeImageIndex) break;
+            if (nextIndex >= 0 && nextIndex < validImages.length) {
+                activeImageIndex = validImages[nextIndex];
+                updateModalImage();
             }
-
-            activeImageIndex = nextIndex;
-            updateModalImage();
         }
 
-        modal.addEventListener('close', () => {
-            document.body.style.overflow = 'auto';
-        });
+        function updateButtonVisibility() {
+            const prevBtn = document.querySelector('button[onclick="changeImage(-1)"]');
+            const nextBtn = document.querySelector('button[onclick="changeImage(1)"]');
 
-        window.addEventListener('keydown', (e) => {
-            if (modal.open) {
-                if (e.key === "ArrowRight") changeImage(1);
-                if (e.key === "ArrowLeft") changeImage(-1);
-            }
-        });
+            if (!prevBtn || !nextBtn) return;
 
-        // 4. DOWNLOAD LOGIC
+            const currentIndex = validImages.indexOf(activeImageIndex);
+
+            prevBtn.style.visibility = currentIndex <= 0 ? "hidden" : "visible";
+            nextBtn.style.visibility = currentIndex >= validImages.length - 1 ? "hidden" : "visible";
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadGallery);
+        } else {
+            loadGallery();
+        }
+
+        // DOWNLOAD LOGIC
         async function triggerDownload() {
             const urls = [
                 `https://raw.githubusercontent.com/${username}/${repo}/main/Comp%20Card.png`,
@@ -428,13 +442,23 @@
             }
         }
 
-        // 5. OPTIMIZED NAV HIGHLIGHT
+        modal.addEventListener('close', () => {
+            document.body.style.overflow = 'auto';
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (modal.open) {
+                if (e.key === "ArrowRight") changeImage(1);
+                if (e.key === "ArrowLeft") changeImage(-1);
+            }
+        });
+
         window.addEventListener('scroll', () => {
             let current = "home";
             const sections = document.querySelectorAll('section, header');
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 150) {
+                if (window.pageYOffset >= sectionTop - 150) {
                     current = section.getAttribute('id');
                 }
             });
@@ -446,10 +470,6 @@
                 }
             });
         }, { passive: true });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadGallery();
-        });
     </script>
 
     <script async defer src="https://www.instagram.com/embed.js"></script>
