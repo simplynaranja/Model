@@ -114,11 +114,13 @@
 
         .insta-scroll-container {
             display: grid;
-            grid-template-columns: repeat(4, minmax(300px, 1fr));
+            grid-template-columns: repeat(4, minmax(320px, 1fr));
             gap: 1rem;
             overflow-x: auto;
             padding-bottom: 1rem;
             scrollbar-width: none;
+            justify-items: center;
+            align-items: start;
         }
 
         .insta-scroll-container::-webkit-scrollbar {
@@ -132,14 +134,17 @@
             border: 1px solid rgba(0, 0, 0, 0.05);
             background: #fff;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .insta-wrapper iframe {
-            width: 100% !important;
+            width: auto !important;
+            max-width: 100% !important;
             height: 100% !important;
             border: none !important;
-            position: absolute;
-            top: 0;
+            position: relative !important;
         }
     </style>
 </head>
@@ -216,7 +221,8 @@
                     <div class="flex justify-between border-b border-black/5 pb-4"><span>Hair</span><span>Brown</span>
                     </div>
                     <div class="flex justify-between border-b border-black/5 pb-4">
-                        <span>Eyes</span><span>Amber/Brown</span></div>
+                        <span>Eyes</span><span>Amber/Brown</span>
+                    </div>
                 </div>
             </div>
             <img src="https://raw.githubusercontent.com/simplynaranja/Model/main/Stats.jpg"
@@ -264,7 +270,23 @@
                     <span class="text-xs tracking-widest opacity-60 uppercase font-bold">@nara.nja.a</span>
                 </div>
             </div>
-
+            <div class="insta-scroll-container mb-24">
+                <div class="insta-wrapper">
+                    <blockquote class="instagram-media" data-instgrm-captioned="false"
+                        data-instgrm-permalink="https://www.instagram.com/p/DS3RWcxkaeD/" data-instgrm-version="14">
+                    </blockquote>
+                </div>
+                <div class="insta-wrapper">
+                    <blockquote class="instagram-media" data-instgrm-captioned="false"
+                        data-instgrm-permalink="https://www.instagram.com/p/DGGrwpNxewE/" data-instgrm-version="14">
+                    </blockquote>
+                </div>
+                <div class="insta-wrapper">
+                    <blockquote class="instagram-media" data-instgrm-captioned="false"
+                        data-instgrm-permalink="https://www.instagram.com/p/DRGEAO6Edem/" data-instgrm-version="14">
+                    </blockquote>
+                </div>
+            </div>
             <p
                 class="text-xl md:text-2xl font-light leading-tight max-w-3xl mx-auto text-gray-900 italic opacity-80 mt-20">
                 I want to model for the simple fact I have a face that was made for print. I want to prove I can achieve
@@ -399,6 +421,7 @@
             });
         });
     </script>
+    <script async defer src="https://www.instagram.com/embed.js"></script>
 </body>
 
 </html>
