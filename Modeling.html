@@ -326,7 +326,6 @@
     </dialog>
 
     <script>
-    // 1. CONFIGURATION
     const username = "simplynaranja"; 
     const repo = "Model";
     const folder = "Modeling"; 
@@ -336,17 +335,17 @@
     const modal = document.getElementById('gal_modal');
     const modalImg = document.getElementById('gal_img');
     let activeImageIndex = 1;
+    const validImages = []; 
 
-    // 2. GALLERY GENERATION
     const fragment = document.createDocumentFragment();
     for (let i = 1; i <= totalImages; i++) {
         const img = document.createElement('img');
-        // Added a small timestamp to the URL to prevent GitHub caching issues
         img.src = `https://raw.githubusercontent.com/${username}/${repo}/main/${folder}/${i}.jpg`;
         img.className = "aspect-[3/4] object-cover gallery-img hidden opacity-0 transition-all duration-500";
         img.loading = "lazy";
         
         img.onload = function() {
+            validImages.push(i);
             this.classList.remove('hidden');
             setTimeout(() => this.classList.add('opacity-100'), 50);
         };
@@ -361,7 +360,6 @@
     }
     grid.appendChild(fragment);
 
-    // 3. MODAL NAVIGATION
     function openModal(index) {
         activeImageIndex = index;
         updateModalImage();
@@ -374,9 +372,15 @@
     }
 
     function changeImage(step) {
-        activeImageIndex += step;
-        if (activeImageIndex > totalImages) activeImageIndex = 1;
-        if (activeImageIndex < 1) activeImageIndex = totalImages;
+        let nextIndex = activeImageIndex + step;
+        while (!validImages.includes(nextIndex)) {
+            nextIndex += step;
+            if (nextIndex > totalImages) nextIndex = 1;
+            if (nextIndex < 1) nextIndex = totalImages;
+            if (nextIndex === activeImageIndex) break;
+        }
+        
+        activeImageIndex = nextIndex;
         updateModalImage();
     }
 
@@ -391,7 +395,6 @@
         }
     });
 
-    // 4. DOWNLOAD LOGIC
     async function triggerDownload() {
         const urls = [
             `https://raw.githubusercontent.com/${username}/${repo}/main/Comp%20Card.png`,
@@ -436,8 +439,10 @@
     }, { passive: true });
 </script>
 
-<script async src="https://www.instagram.com/embed.js"></script>
+<script async defer src="https://www.instagram.com/embed.js"></script>
 </body>
 
 </html>
+</html>
+
 
