@@ -8,136 +8,35 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Raleway:wght@300;400;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Raleway:wght@300;400;800&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        :root {
-            --primary-orange: #ff5400;
-            --card-beige: #efe8df;
-        }
+        :root { --primary-orange: #ff5400; --card-beige: #efe8df; }
+        body { background-color: var(--card-beige); font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; color: #1a1a1a; overflow-x: hidden; }
+        h1, h2, .nav-item { font-family: 'Raleway', sans-serif; }
+        .text-custom-orange { color: var(--primary-orange); }
 
-        body {
-            background-color: var(--card-beige);
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #1a1a1a;
-        }
+        .nav-container { background-color: var(--card-beige); border-bottom: 1px solid rgba(0, 0, 0, 0.03); }
+        .nav-item { position: relative; color: #888; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 700; transition: all 0.3s ease; text-align: center; padding: 1rem 0.2rem; }
+        .nav-item::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background-color: var(--primary-orange); transition: all 0.3s ease; transform: translateX(-50%); }
+        .nav-item.active { color: var(--primary-orange); }
+        .nav-item.active::after { width: 80%; }
 
-        h1,
-        h2,
-        .nav-item {
-            font-family: 'Raleway', sans-serif;
-        }
+        .header-box { line-height: 0; margin-bottom: 0; }
+        .editorial-banner { width: 100%; height: 60vh; object-fit: cover; object-position: center 10%; display: block; }
+        @media (max-width: 768px) { .editorial-banner { height: 25vh; } }
 
-        .text-custom-orange {
-            color: var(--primary-orange);
-        }
+        section, header { scroll-margin-top: 50px; }
+        .gallery-img { transition: transform 0.3s ease, opacity 0.5s ease; background-color: #e5ddd3; cursor: pointer; }
+        .gallery-img:hover { opacity: 0.8; transform: scale(1.02); }
 
-        .nav-container {
-            background-color: var(--card-beige);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-        }
-
-        .nav-item {
-            position: relative;
-            color: #888;
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            text-align: center;
-            padding: 1rem 0.2rem;
-        }
-
-        .nav-item::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-orange);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-item.active {
-            color: var(--primary-orange);
-        }
-
-        .nav-item.active::after {
-            width: 80%;
-        }
-
-        .header-box {
-            line-height: 0;
-            margin-bottom: 0;
-        }
-
-        .editorial-banner {
-            width: 100%;
-            height: 60vh;
-            object-fit: cover;
-            object-position: center 10%;
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .editorial-banner {
-                height: 25vh;
-            }
-        }
-
-        section,
-        header {
-            scroll-margin-top: 50px;
-        }
-
-        .gallery-img {
-            transition: opacity 0.4s ease;
-            background-color: #e5ddd3;
-        }
-
-        .gallery-img:hover {
-            opacity: 0.7;
-        }
-
-        .insta-scroll-container {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(326px, 1fr));
-            gap: 1rem;
-            overflow-x: auto;
-            padding-bottom: 1rem;
-            scrollbar-width: none;
-        }
-
-        .insta-scroll-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .insta-wrapper {
-            width: 100%;
-            height: 380px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            background: #fff;
-            position: relative;
-        }
-
-        .insta-wrapper iframe {
-            width: 100% !important;
-            height: 100% !important;
-            border: none !important;
-            position: absolute;
-            top: 0;
-        }
+        .insta-scroll-container { display: grid; grid-template-columns: repeat(4, minmax(300px, 1fr)); gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scrollbar-width: none; }
+        .insta-scroll-container::-webkit-scrollbar { display: none; }
+        .insta-wrapper { width: 100%; height: 380px; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.05); background: #fff; position: relative; }
+        .insta-wrapper iframe { width: 100% !important; height: 100% !important; border: none !important; position: absolute; top: 0; }
     </style>
 </head>
 
@@ -155,225 +54,161 @@
     </nav>
 
     <header id="home" class="header-box relative w-full overflow-hidden flex items-end">
-        <img src="https://github.com/simplynaranja/Model/blob/main/Banner.jpg?raw=true"
-            class="editorial-banner brightness-95" alt="Banner">
+        <img src="https://raw.githubusercontent.com/simplynaranja/Model/main/Banner.jpg" class="editorial-banner brightness-95" alt="Banner">
         <div class="absolute w-full bottom-12 md:bottom-32">
             <div class="max-w-5xl mx-auto px-6 md:px-0">
-                <h1
-                    class="text-5xl md:text-9xl text-custom-orange leading-none uppercase tracking-tighter font-black drop-shadow-sm">
-                    NARA
-                </h1>
+                <h1 class="text-5xl md:text-9xl text-custom-orange leading-none uppercase tracking-tighter font-black drop-shadow-sm">NARA</h1>
             </div>
         </div>
     </header>
 
-    <div class="max-w-5xl mx-auto py-12 px-6 md:px-0 space-y-12 md:space-y-24">
+    <div class="max-w-5xl mx-auto py-12 px-6 md:px-0 space-y-24 md:space-y-32">
 
         <section id="about" class="section-container text-center">
-            <h2 class="text-custom-orange text-3xl md:text-5xl uppercase tracking-widest mb-10 font-bold italic">
-                About
-            </h2>
+            <h2 class="text-custom-orange text-3xl md:text-5xl uppercase tracking-widest mb-10 font-bold italic">About</h2>
             <p class="text-2xl md:text-5xl font-light leading-tight max-w-4xl text-gray-900 mx-auto">
-                I am 23, born and raised in NYC. My family is from the Dominican Republic.
-                In my free time I <a href="javascript:void(0)"
-                    class="relative group text-custom-orange hover:opacity-90 transition-opacity border-b border-custom-orange">code<span
-                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-black text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">I
-                        coded this website!</span></a>, <a href="https://www.instagram.com/creating_stars/"
-                    target="_blank"
-                    class="relative group text-custom-orange hover:opacity-90 transition-opacity border-b border-custom-orange">paint<span
-                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-black text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Click
-                        to see my art</span></a>, and do <a href="javascript:void(0)"
-                    class="relative group text-custom-orange hover:opacity-90 transition-opacity border-b border-custom-orange">judo<span
-                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-black text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Green
-                        belt</span></a>.
+                I am 23, born and raised in NYC. My family is from the Dominican Republic. 
+                In my free time I 
+                <a href="javascript:void(0)" class="relative group text-custom-orange border-b border-custom-orange">code
+                    <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-black text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal normal-case tracking-normal">I coded this website!</span>
+                </a>, 
+                <a href="https://www.instagram.com/creating_stars/" target="_blank" class="relative group text-custom-orange border-b border-custom-orange">paint
+                    <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-black text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal normal-case tracking-normal">Click to see my art</span>
+                </a>, and do 
+                <a href="javascript:void(0)" class="relative group text-custom-orange border-b border-custom-orange">judo
+                    <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-black text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal normal-case tracking-normal">Green belt</span>
+                </a>.
             </p>
         </section>
 
         <section id="details" class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
             <div class="section-container">
-                <h2 class="text-custom-orange text-3xl md:text-5xl uppercase italic tracking-widest mb-12 font-bold">
-                    Stats</h2>
+                <h2 class="text-custom-orange text-3xl md:text-5xl uppercase italic tracking-widest mb-12 font-bold">Stats</h2>
                 <div class="space-y-5 text-xl md:text-2xl font-light">
-                    <div class="flex justify-between border-b border-black/5 pb-4">
-                        <span>Height</span>
-                        <div><span>5'1"</span><span class="metric-unit">/ 155cm</span></div>
-                    </div>
-                    <div class="flex justify-between border-b border-black/5 pb-4">
-                        <span>Waist</span>
-                        <div><span>28"</span><span class="metric-unit">/ 71cm</span></div>
-                    </div>
-                    <div class="flex justify-between border-b border-black/5 pb-4">
-                        <span>Hips</span>
-                        <div><span>37.5"</span><span class="metric-unit">/ 95cm</span></div>
-                    </div>
-                    <div class="flex justify-between border-b border-black/5 pb-4">
-                        <span>Bust</span>
-                        <div><span>33.5"</span><span class="metric-unit">/ 85cm</span></div>
-                    </div>
-                    <div class="flex justify-between border-b border-black/5 pb-4">
-                        <span>Weight</span> <span>120 lbs</span>
-                    </div>
-                    <div class="flex justify-between border-b border-black/5 pb-4">
-                        <span>Hair</span> <span>Brown</span>
-                    </div>
-                    <div class="flex justify-between border-b border-black/5 pb-4">
-                        <span>Eyes</span> <span>Amber/Brown</span>
-                    </div>
+                    <div class="flex justify-between border-b border-black/5 pb-4"><span>Height</span><span>5'1" / 155cm</span></div>
+                    <div class="flex justify-between border-b border-black/5 pb-4"><span>Waist</span><span>28" / 71cm</span></div>
+                    <div class="flex justify-between border-b border-black/5 pb-4"><span>Hips</span><span>37.5" / 95cm</span></div>
+                    <div class="flex justify-between border-b border-black/5 pb-4"><span>Bust</span><span>33.5" / 85cm</span></div>
+                    <div class="flex justify-between border-b border-black/5 pb-4"><span>Weight</span><span>120 lbs</span></div>
+                    <div class="flex justify-between border-b border-black/5 pb-4"><span>Hair</span><span>Brown</span></div>
+                    <div class="flex justify-between border-b border-black/5 pb-4"><span>Eyes</span><span>Amber/Brown</span></div>
                 </div>
             </div>
-            <div class="h-full">
-                <img src="https://github.com/simplynaranja/Model/blob/main/Stats.jpg?raw=true"
-                    class="w-full object-cover shadow-lg" alt="Stats">
-            </div>
+            <img src="https://raw.githubusercontent.com/simplynaranja/Model/main/Stats.jpg" class="w-full object-cover shadow-lg" alt="Stats">
         </section>
 
         <section id="comp" class="section-container">
             <div class="flex justify-between items-end mb-16">
-                <h2 class="text-custom-orange text-3xl md:text-5xl uppercase italic tracking-widest font-bold">Comp Card
-                </h2>
-                <button onclick="triggerDownload()" id="download-btn"
-                    class="text-xs font-bold tracking-widest uppercase border-b-2 border-custom-orange pb-1 transition-all hover:opacity-50">
-                    Download Cards
-                </button>
+                <h2 class="text-custom-orange text-3xl md:text-5xl uppercase italic tracking-widest font-bold">Comp Card</h2>
+                <button onclick="triggerDownload()" class="text-xs font-bold tracking-widest uppercase border-b-2 border-custom-orange pb-1 hover:opacity-50">Download Cards</button>
             </div>
             <div class="grid grid-cols-2 gap-4 md:gap-10">
-                <img id="img1" src="https://github.com/simplynaranja/Model/blob/main/Comp%20Card.png?raw=true"
-                    class="w-full shadow-sm" alt="Card 1">
-                <img id="img2" src="https://github.com/simplynaranja/Model/blob/main/Comp%20Card%20V2.png?raw=true"
-                    class="w-full shadow-sm" alt="Card 2">
+                <img src="https://raw.githubusercontent.com/simplynaranja/Model/main/Comp%20Card.png" class="w-full shadow-sm">
+                <img src="https://raw.githubusercontent.com/simplynaranja/Model/main/Comp%20Card%20V2.png" class="w-full shadow-sm">
             </div>
         </section>
 
         <section id="gallery" class="section-container">
-            <h2
-                class="text-custom-orange text-3xl md:text-5xl uppercase italic tracking-widest mb-4 text-center font-bold">
-                Gallery</h2>
-            <p class="text-center text-[10px] tracking-[0.4em] uppercase opacity-40 mb-16 font-bold">Explore the work
-            </p>
-            <div id="image-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8"></div>
+            <h2 class="text-custom-orange text-3xl md:text-5xl uppercase italic tracking-widest mb-8 text-center font-bold">Gallery</h2>
+            <div id="image-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"></div>
         </section>
 
         <section id="contact" class="section-container py-20 text-center">
-            <h2 class="text-custom-orange text-7xl md:text-[11rem] uppercase italic tracking-tighter mb-20 font-black">
-                Contact</h2>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-20 mb-20">
-                <a href="mailto:simplynaranjaa@gmail.com" class="group">
-                    <span
-                        class="text-xl md:text-3xl font-bold tracking-widest border-b-4 border-black group-hover:border-custom-orange transition-colors">EMAIL
-                        ME</span>
-                </a>
-                <a href="https://www.instagram.com/nara.nja.a/" class="group" target="_blank">
-                    <span
-                        class="text-xl md:text-3xl font-bold tracking-widest border-b-4 border-black group-hover:border-custom-orange transition-colors">INSTAGRAM</span>
-                </a>
-            </div>
-
-            <h2
-                class="text-custom-orange text-3xl md:text-5xl uppercase italic tracking-widest mb-12 text-center font-bold">
-                Social</h2>
-
-            <div class="insta-scroll-container mb-12">
-                <div class="insta-wrapper">
-                    <blockquote class="instagram-media" data-instgrm-captioned="false"
-                        data-instgrm-permalink="https://www.instagram.com/p/DS3RWcxkaeD/" data-instgrm-version="14">
-                    </blockquote>
+            <h2 class="text-custom-orange text-7xl md:text-[11rem] uppercase italic tracking-tighter mb-20 font-black">Contact</h2>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-16 md:gap-32 mb-24">
+                <div class="flex flex-col items-center">
+                    <a href="mailto:simplynaranjaa@gmail.com" class="text-2xl md:text-4xl font-bold border-b-4 border-black hover:border-custom-orange transition-all mb-2">EMAIL ME</a>
+                    <span class="text-xs tracking-widest opacity-60 uppercase font-bold">simplynaranjaa@gmail.com</span>
                 </div>
-                <div class="insta-wrapper">
-                    <blockquote class="instagram-media" data-instgrm-captioned="false"
-                        data-instgrm-permalink="https://www.instagram.com/p/DGGrwpNxewE/" data-instgrm-version="14">
-                    </blockquote>
-                </div>
-                <div class="insta-wrapper">
-                    <blockquote class="instagram-media" data-instgrm-captioned="false"
-                        data-instgrm-permalink="https://www.instagram.com/p/DRGEAO6Edem/" data-instgrm-version="14">
-                    </blockquote>
+
+                <div class="flex flex-col items-center">
+                    <a href="https://www.instagram.com/nara.nja.a/" target="_blank" class="text-2xl md:text-4xl font-bold border-b-4 border-black hover:border-custom-orange transition-all mb-2">INSTAGRAM</a>
+                    <span class="text-xs tracking-widest opacity-60 uppercase font-bold">@nara.nja.a</span>
                 </div>
             </div>
 
-            <p class="text-xl md:text-2xl font-light leading-tight max-w-3xl mx-auto text-gray-900 italic">
-                I want to model for the simple fact I have a face that was made for print. I want to prove I can achieve
-                something most people see as impossible
+            <p class="text-xl md:text-2xl font-light leading-tight max-w-3xl mx-auto text-gray-900 italic opacity-80 mt-20">
+                I want to model for the simple fact I have a face that was made for print. I want to prove I can achieve something most people see as impossible
             </p>
         </section>
     </div>
 
-    <dialog id="gal_modal" class="modal bg-black/95 transition-opacity duration-300">
-        <div
-            class="modal-box p-0 bg-transparent shadow-none max-w-none max-h-none w-full h-full flex items-center justify-center relative rounded-none">
-            <form method="dialog">
-                <button
-                    class="btn btn-sm btn-circle absolute right-6 top-6 z-50 bg-white text-black border-none hover:bg-custom-orange hover:text-white">✕</button>
-            </form>
-            <img id="gal_img" src="" class="max-w-[95%] max-h-[90vh] w-auto h-auto object-contain shadow-2xl">
+    <dialog id="gal_modal" class="modal bg-black/95">
+        <div class="modal-box p-0 bg-transparent shadow-none max-w-none max-h-none w-full h-full flex items-center justify-center relative rounded-none">
+            <form method="dialog"><button class="btn btn-sm btn-circle absolute right-6 top-6 z-50 bg-white text-black border-none">✕</button></form>
+            <img id="gal_img" src="" class="max-w-[95%] max-h-[90vh] object-contain shadow-2xl">
         </div>
         <form method="dialog" class="modal-backdrop"><button>close</button></form>
     </dialog>
 
-    <script async src="https://www.instagram.com/embed.js"></script>
     <script>
-        // Gallery
+        const username = "simplynaranja"; 
+        const repo = "Model";
+        const folder = "Modeling"; 
+
         const grid = document.getElementById('image-grid');
         const modal = document.getElementById('gal_modal');
         const modalImg = document.getElementById('gal_img');
 
-        for (let i = 1; i <= 100; i++) {
+        // GALLERY GENERATION
+        const fragment = document.createDocumentFragment();
+        for (let i = 1; i <= 80; i++) {
             const img = document.createElement('img');
-
-            img.src = `https://github.com/simplynaranja/Model/blob/main/Modeling/${i}.jpg?raw=true`;
-            img.className = "cursor-pointer aspect-[3/4] object-cover gallery-img hidden";
+            img.src = `https://raw.githubusercontent.com/${username}/${repo}/main/${folder}/${i}.jpg`;
+            img.className = "aspect-[3/4] object-cover gallery-img hidden opacity-0";
             img.loading = "lazy";
+            
+            img.onload = function() {
+                this.classList.remove('hidden');
+                setTimeout(() => this.classList.add('opacity-100'), 50);
+            };
 
-            img.onload = () => {
-                img.classList.remove('hidden');
-            };
-            img.onerror = () => {
-                img.remove();
-            };
-            img.onclick = () => {
-                modalImg.src = img.src;
+            img.onerror = function() { this.remove(); };
+
+            img.onclick = function() {
+                modalImg.src = this.src;
                 modal.showModal();
             };
-
-            grid.appendChild(img);
+            fragment.appendChild(img);
         }
+        grid.appendChild(fragment);
 
-        // Nav Highlight
-        const navItems = document.querySelectorAll('.nav-item');
-        window.addEventListener('scroll', () => {
-            let current = "home";
-            document.querySelectorAll('section, header').forEach(section => {
-                if (pageYOffset >= section.offsetTop - 120) {
-                    current = section.getAttribute('id');
-                }
-            });
-            navItems.forEach(item => {
-                item.classList.toggle('active', item.getAttribute('href').includes(current));
-            });
-        });
-
-        function triggerDownload() {
+        // DOWNLOAD LOGIC
+        async function triggerDownload() {
             const urls = [
-                "https://github.com/simplynaranja/Model/blob/main/Comp%20Card.png?raw=true",
-                "https://github.com/simplynaranja/Model/blob/main/Comp%20Card%20V2.png?raw=true"
+                `https://raw.githubusercontent.com/${username}/${repo}/main/Comp%20Card.png`,
+                `https://raw.githubusercontent.com/${username}/${repo}/main/Comp%20Card%20V2.png`
             ];
 
-            urls.forEach((url, i) => {
-                setTimeout(() => {
+            for (const [index, url] of urls.entries()) {
+                try {
+                    const response = await fetch(url);
+                    const blob = await response.blob();
+                    const blobUrl = window.URL.createObjectURL(blob);
                     const link = document.createElement('a');
-                    link.href = url;
-                    link.download = `NARA_CompCard_${i + 1}.png`;
-                    link.target = "_blank";
+                    link.href = blobUrl;
+                    link.download = `NARA_CompCard_${index + 1}.png`;
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
-                }, i * 400);
-            });
+                    window.URL.revokeObjectURL(blobUrl);
+                } catch (e) {
+                    window.open(url, '_blank');
+                }
+            }
         }
 
-        window.addEventListener('load', () => {
-            if (window.instgrm) { window.instgrm.Embeds.process(); }
+        // NAV HIGHLIGHT
+        window.addEventListener('scroll', () => {
+            let current = "home";
+            document.querySelectorAll('section, header').forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 120) current = section.getAttribute('id');
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.toggle('active', item.getAttribute('href').includes(current));
+            });
         });
     </script>
 </body>
-
 </html>
